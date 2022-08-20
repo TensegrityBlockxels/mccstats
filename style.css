@@ -1,5 +1,6 @@
 :root {
-    --h2-space-between: 1rem;
+    --h2-margin-bottom: 1rem;
+    --h2-margin-top: 1rem;
 }
 body {
     color: #ffff;
@@ -7,7 +8,7 @@ body {
     font-family: "Poppins";
     background-color: #161616;
 }
-
+/*! Container style*/
 div.container {
     border-radius: 4%;
     background-color: #262626;
@@ -15,7 +16,7 @@ div.container {
     width: 60rem;
 }
 
-
+/*Container Header style -*/
 div.container-header {
     outline: #161616;
     outline-width: 4%;
@@ -51,50 +52,47 @@ div.container-header option {
     background-color: #111111;
 }
 
-div.container>div.player-list {
-    position: relative;
-}
-ul {
-    width: fit-content;
-    padding: 0;
-    list-style-type: none;
-    margin: 0;
-}
-
 div.container>div.player-list>h2 {
     position: relative;
     left: 1rem;
     top: var(--h2-space-between);
 }
-div.container>div.player-list>ul>li{
-    position: relative;
+
+/*Player List style*/
+div.container>div.player-list{
+    position: absolute;
+    width: 30rem;
+}
+div.container>div.player-list>h2{
+    margin-bottom: var(--h2-margin-bottom);
+    margin-top: var(--h2-space-between);
+}
+div.container>div.player-list>p{
+    max-width: fit-content;
     top: 4rem;
     padding-left: 1rem;
 }
-div.container>div.player-list>ul>li:first-child{
-    padding-top: 0.5rem;
-}
-div.container>div.player-list>ul>li:not(:last-child) {
+div.container>div.player-list>p:not(:last-child) {
     margin-bottom: 2rem;
 }
 
 
-
+/*Coin Rankings style*/
 div.coinRankings {
-    position: relative;
+    position: absolute;
+    bottom: 20rem;
     left: 30rem;
-    
 }
 div.coinRankings>h2 {
-    position: relative;
-    left: 1rem;
-    top: var(--h2-space-between);
+    margin-left: 0.8rem;
+    margin-bottom: var(--h2-margin-bottom);
+    margin-top: var(--h2-space-between);
 }
-div.coinRankings>ul>li{
-    position: relative;
+div.coinRankings>p {
+    max-width: fit-content;
     top: 4rem;
     padding-left: 1rem;
 }
-div.coinRankings>ul>li:not(:last-child) {
+div.coinRankings>p:not(:last-child) {
     margin-bottom: 2rem;
 }

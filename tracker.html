@@ -26,31 +26,28 @@
                 <option>Role in the Wall</option>
             </select>
         </div>
-        <div class="player-list">
-            <h2>Players</h2>
-            <ul x-data="{
-                players: null,
-                async getPlayers() {
-                    let players = await fetch('https://www.uuidtools.com/api/generate/v4/count/4').then(response => response.json()).then((json) => this.players = json)
-                    console.log(players)
-                    for (player in players) {
-                        console.log(players[player])
-                    }
+        <div class="player-list" x-data="{
+            players: null,
+            async getPlayers() {
+                let players = await fetch('https://www.uuidtools.com/api/generate/v4/count/4').then(response => response.json()).then((json) => this.players = json)
+                console.log(players)
+                for (player in players) {
+                    console.log(players[player])
                 }
-            }" x-init="getPlayers()">
-                <template x-for="player in players">
-                    <li x-text="player"></li>
-                </template>
-            </ul>
+            }
+        }" x-init="getPlayers()">
+            <h2>Players</h2>
+            <template x-for="player in players">
+                <p x-text="player"></p>
+            </template>
         </div>
 
 
-        <div class="coinRankings">
+        <div class="coinRankings" x-data="{ coinRanks: [1456, 1267, 2430, 1524] }">
             <h2>Coins</h2>
-            <ul x-data="{ coinRanks: [1456, 1267, 2430, 1524] }">
-                <template x-for="coinRank in coinRanks">
-                    <li x-text="coinRank"></li>
-                </template>
+            <template x-for="coinRank in coinRanks">
+                <p x-text="coinRank"></p>
+            </template>
             </ul>
         </div>
         <!-- <div class="score one">
