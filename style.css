@@ -1,0 +1,100 @@
+:root {
+    --h2-space-between: 1rem;
+}
+body {
+    color: #ffff;
+    overflow: hidden;
+    font-family: "Poppins";
+    background-color: #161616;
+}
+
+div.container {
+    border-radius: 4%;
+    background-color: #262626;
+    height: 25rem;
+    width: 60rem;
+}
+
+
+div.container-header {
+    outline: #161616;
+    outline-width: 4%;
+    outline-style: solid;
+}
+div.container-header>span {
+    position: relative;
+    left: 10rem;
+}
+div.container-header select {
+    position: relative;
+    left: 35rem;
+    bottom: 1rem;
+    color: gold;
+    background-image: #111111;
+    cursor: pointer;
+    line-height: 1.1;
+    appearance: none;
+    outline: none;
+    background-color: transparent;
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+}
+div.container-header option {
+    color: gold;
+    background-color: #111111;
+}
+
+div.container>div.player-list {
+    position: relative;
+}
+ul {
+    width: fit-content;
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+}
+
+div.container>div.player-list>h2 {
+    position: relative;
+    left: 1rem;
+    top: var(--h2-space-between);
+}
+div.container>div.player-list>ul>li{
+    position: relative;
+    top: 4rem;
+    padding-left: 1rem;
+}
+div.container>div.player-list>ul>li:first-child{
+    padding-top: 0.5rem;
+}
+div.container>div.player-list>ul>li:not(:last-child) {
+    margin-bottom: 2rem;
+}
+
+
+
+div.coinRankings {
+    position: relative;
+    left: 30rem;
+    
+}
+div.coinRankings>h2 {
+    position: relative;
+    left: 1rem;
+    top: var(--h2-space-between);
+}
+div.coinRankings>ul>li{
+    position: relative;
+    top: 4rem;
+    padding-left: 1rem;
+}
+div.coinRankings>ul>li:not(:last-child) {
+    margin-bottom: 2rem;
+}

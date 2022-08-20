@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCC Analyser</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="css-reset.css">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="container-header">
+            <span>Test 1</span>
+            <select class="game-selector" x-model="game">
+                <option>Rocket Spleef Rush</option>
+                <option>Battle Box</option>
+                <option>Meltdown</option>
+                <option>Sands of Time</option>
+                <option>Buildmart</option>
+                <option>Grid Runners</option>
+                <option>Sky Battle</option>
+                <option>Ace Race</option>
+                <option>Role in the Wall</option>
+            </select>
+        </div>
+        <div class="player-list">
+            <h2>Players</h2>
+            <ul x-data="{
+                players: null,
+                async getPlayers() {
+                    let players = await fetch('https://www.uuidtools.com/api/generate/v4/count/4').then(response => response.json()).then((json) => this.players = json)
+                    console.log(players)
+                    for (player in players) {
+                        console.log(players[player])
+                    }
+                }
+            }" x-init="getPlayers()">
+                <template x-for="player in players">
+                    <li x-text="player"></li>
+                </template>
+            </ul>
+        </div>
+
+
+        <div class="coinRankings">
+            <h2>Coins</h2>
+            <ul x-data="{ coinRanks: [1456, 1267, 2430, 1524] }">
+                <template x-for="coinRank in coinRanks">
+                    <li x-text="coinRank"></li>
+                </template>
+            </ul>
+        </div>
+        <!-- <div class="score one">
+            <ul>
+                <li id="total-score">Total score: 0</li>
+                <li id="game-score">Game score: 0</li>                
+            </ul>
+        </div> -->
+
+    </div>
+    <script src="main.js"></script>
+
+</body>
+</html>
