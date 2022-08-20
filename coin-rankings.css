@@ -1,0 +1,23 @@
+/*Coin Rankings style*/
+div.coinRankings {
+    background-color: green;
+    position: absolute;
+    text-align: center;
+    height: 16rem;
+    left: 25rem;
+    width: 16rem;
+    flex: 25%; 
+    top: 5rem;  
+}
+div.coinRankings>h2 {
+    border-radius: 4%;
+}
+
+div.coinRankings>p:not(:last-child){
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    position: relative;
+}
+div.coinRankings>p:nth-child(odd) {
+    background-color: darkgreen;
+}

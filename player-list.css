@@ -1,0 +1,24 @@
+/*Player List style*/
+div.player-list {
+    background-color: blue;
+    text-align: center;
+    position: absolute;
+    height: 16rem;
+    width: 24rem;
+    left: 1rem;
+    flex: 25%;
+    top: 5rem;
+}
+div.player-list>h2 {
+    border-radius: 4%;
+}
+
+
+div.player-list>p:not(:last-child){
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    position: relative;
+}
+div.player-list>p:nth-child(odd) {
+    background-color: darkblue;
+}
