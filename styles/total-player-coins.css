@@ -1,0 +1,14 @@
+div.total-player-coins {
+    background-color: brown;
+    position: absolute;
+    left: 41rem;
+    top: 5rem;  
+}
+div.total-player-coins>p:not(:last-child){
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    position: relative;
+}
+div.total-player-coins>p:nth-child(odd) {
+    background-color: burlywood;
+}

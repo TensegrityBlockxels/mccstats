@@ -6,11 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCC Analyser</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" href="css-reset.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="container.css">
-    <link rel="stylesheet" href="player-list.css">
-    <link rel="stylesheet" href="coin-rankings.css">
+    <link rel="stylesheet" href="styles/css-reset.css">
+
+    <link rel="stylesheet" href="styles/style.css">
+
+    <link rel="stylesheet" href="styles/container.css">
+
+    <link rel="stylesheet" href="styles/player-list.css">
+    <link rel="stylesheet" href="styles/player-coins.css">
+    <link rel="stylesheet" href="styles/total-player-coins.css">
+    <link rel="stylesheet" href="styles/total-team-coins.css">
+    <link rel="stylesheet" href="styles/team-avg.css">
+
+
+
 
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
@@ -18,7 +27,7 @@
     <div class="teams"></div>
     <div class="container">
         <div class="container-header">
-            <span>Test 1</span>
+            <span>Red Rabbits</span>
             <select class="game-selector" x-model="game">
                 <option>Rocket Spleef Rush</option>
                 <option>Battle Box</option>
@@ -35,10 +44,6 @@
             players: null,
             async getPlayers() {
                 let players = await fetch('https://www.uuidtools.com/api/generate/v4/count/4').then(response => response.json()).then((json) => this.players = json)
-                console.log(players)
-                for (player in players) {
-                    console.log(players[player])
-                }
             }
         }" x-init="getPlayers()">
             <h2>Players</h2>
@@ -48,15 +53,35 @@
         </div>
 
 
-        <div class="coinRankings" x-data="{ coinRanks: [1456, 1267, 2430, 1524] }">
-            <h2>Coins</h2>
+        <div class="cell player-coins" x-data="{ coinRanks: [1456, 1267, 2430, 1524] }">
+            <h2>Game Coins</h2>
             <template x-for="coinRank in coinRanks">
                 <p x-text="coinRank"></p>
             </template>
-            </ul>
+        </div>
+
+        <div class="cell total-player-coins" x-data="{
+            playercoins: null,
+            getPlayerCoins() {
+                let playercoins = fetch('db/participants-red.json').then(response => response.json())
+            }
+        }" x-init="getPlayerCoins()">
+            <h2>Total Player Coins</h2>
+            <!-- <template x-for="rank in playercoins">
+                <p x-text="rank"></p>
+            </template> -->
+        </div>
+
+        <div class="cell total-team-coins" x-data="{ totalTeamCoins: [1456 + 1267 + 2430 + 1524] }">
+            <h2>Total Team Coins</h2>
+            <p x-text="totalTeamCoins"></p>
+        </div>
+
+        <div class="cell team-avg" x-data="{ teamAvg: [(1456 + 1267 + 2430 + 1524) / 4] }">
+            <h2>Total Team Coins</h2>
+            <p x-text="teamAvg"></p>
         </div>
     </div>
-    <script src="main.js"></script>
 
 </body>
 </html>

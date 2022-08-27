@@ -12,3 +12,9 @@ body {
     font-family: "Poppins";
     background-color: var(--background-color);
 }
+.cell {
+    text-align: center;
+    height: 16rem;
+    width: 16rem;
+    flex: 25%; 
+}
