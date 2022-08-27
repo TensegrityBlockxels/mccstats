@@ -1,6 +1,6 @@
 /*Player List style*/
 div.player-list {
-    background-color: blue;
+    /* background-color: blue; */
     text-align: center;
     position: absolute;
     height: 16rem;
@@ -20,5 +20,5 @@ div.player-list>p:not(:last-child){
     position: relative;
 }
 div.player-list>p:nth-child(odd) {
-    background-color: darkblue;
+    background-color: var(--accent-color-1);
 }

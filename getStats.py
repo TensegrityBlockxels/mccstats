@@ -2,7 +2,7 @@ import requests
 import datetime
 isMonday = datetime.date.today().isoweekday() == 1
 def downloadGameStats(gameName):
-    req = requests.get(f"https://api.mcchampionship.com/v1/rundown/{gameName}")
+    req = requests.get(f"https://api.mcchampionship.com/v1/halloffame/{gameName}")
     with open(f"db/{gameName}.json", "w") as stat:
         stat.write(req.text)
 

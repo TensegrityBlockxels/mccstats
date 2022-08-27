@@ -1,10 +1,10 @@
 div.total-team-coins {
-    background-color: darkcyan;
+    /* background-color: darkcyan; */
     position: absolute;
-    left: 57rem;
-    top: 5rem;  
+    left: 41rem;
 }
 div.total-team-coins>p{
+    
     padding-top: 5rem;
     position: relative;
 }

@@ -2,6 +2,8 @@
     --background-color: rgb(37, 37, 37);
     --accent-color-1: rgb(28, 28, 28);
     --accent-color-2: rgb(38, 38, 38);
+    --accent-color-3: rgb(24, 24, 24);
+
     --contents-margin-top: 10rem;
     --h2-margin-bottom: 1rem;
     --h2-margin-top: 1rem;
@@ -16,5 +18,12 @@ body {
     text-align: center;
     height: 16rem;
     width: 16rem;
-    flex: 25%; 
+    flex: 25%;
+    top: 5rem;
+}
+.cell-checker1 {
+    background-color: var(--accent-color-2);
+}
+.cell-checker2 {
+    background-color: var(--accent-color-3);
 }

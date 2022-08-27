@@ -1,8 +1,7 @@
 div.team-avg {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     position: absolute;
-    left: 73rem;
-    top: 5rem;  
+    left: 57rem;
 }
 div.team-avg>p{
     padding-top: 5rem;
