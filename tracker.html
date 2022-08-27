@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="styles/container.css">
 
     <link rel="stylesheet" href="styles/player-list.css">
-    <link rel="stylesheet" href="styles/player-coins.css">
+    <link rel="stylesheet" href="styles/game-player-coins.css">
     <link rel="stylesheet" href="styles/total-player-coins.css">
+
     <link rel="stylesheet" href="styles/total-team-coins.css">
     <link rel="stylesheet" href="styles/team-avg.css">
 
@@ -25,52 +26,69 @@
 </head>
 <body>
     <div class="teams"></div>
-    <div class="container">
+    <div class="container" x-data="{ playerdata: null, players: [], game: null }">
         <div class="container-header">
             <span>Red Rabbits</span>
-            <select class="game-selector" x-model="game">
-                <option>Rocket Spleef Rush</option>
-                <option>Battle Box</option>
-                <option>Meltdown</option>
-                <option>Sands of Time</option>
-                <option>Buildmart</option>
-                <option>Grid Runners</option>
-                <option>Sky Battle</option>
-                <option>Ace Race</option>
-                <option>Role in the Wall</option>
+            <select class="game-selector" x-model="game" x-ref="gameSelected">
+                <option value="MG_ROCKET_SPLEEF">Rocket Spleef Rush</option>
+                <option value="MG_BATTLE_BOX">Battle Box</option>
+                <option value="MG_MELTDOWN">Meltdown</option>
+                <option value="MG_SANDS_OF_TIME">Sands of Time</option>
+                <option value="MG_BUILD_MART">Buildmart</option>
+                <option value="MG_GRID_RUNNERS">Grid Runners</option>
+                <option value="MG_SKYBATTLE">Sky Battle</option>
+                <option value="MG_ACE_RACE">Ace Race</option>
+                <option value="MG_HOLE_IN_THE_WALL">Role in the Wall</option>
             </select>
         </div>
         <div class="player-list" x-data="{
-            players: null,
-            async getPlayers() {
-                let players = await fetch('https://www.uuidtools.com/api/generate/v4/count/4').then(response => response.json()).then((json) => this.players = json)
+            async getPlayerNames() {
+                let players = []
+                let playerdata = await fetch('db/participants-red.json').then(response => response.json()).then(response => response.data)
+                for (p in playerdata) { 
+                    players.push(playerdata[p].username)
+                }
+                this.players = players
             }
-        }" x-init="getPlayers()">
+        }" x-init="getPlayerNames()">
             <h2>Players</h2>
-            <template x-for="player in players">
-                <p x-text="player"></p>
+            <template x-for="username in players">
+                <p x-text="username"></p>
             </template>
-        </div>
+        </div> <!-- Done!!! -->
 
 
-        <div class="cell player-coins" x-data="{ coinRanks: [1456, 1267, 2430, 1524] }">
+        <div class="cell game-player-coins" x-data="{ gamePlayerCoins: [], 
+            async getgamePlayerCoins() {
+                let gamePlayerCoins = []
+                let res = await fetch('db/' + $refs.gameSelected._x_model.get()).then(response => response.json()).then(response => response.data)
+                console.log(res)
+                this.gamePlayerCoins = gamePlayerCoins
+            }
+        
+        }" x-init="getgamePlayerCoins">
             <h2>Game Coins</h2>
-            <template x-for="coinRank in coinRanks">
+            <!-- <template x-for="coinRank in coinRanks">
                 <p x-text="coinRank"></p>
-            </template>
+            </template> -->
         </div>
 
         <div class="cell total-player-coins" x-data="{
-            playercoins: null,
-            getPlayerCoins() {
-                let playercoins = fetch('db/participants-red.json').then(response => response.json())
+            totalPlayerCoins: [],
+            async gettotalPlayerCoins() {
+                let totalPlayerCoins = []
+                let res = await fetch('db/individualScores.json').then(response => response.json()).then(response => response.data)
+                for (p in this.players) {
+                    totalPlayerCoins.push(res.individualScores[this.players[p]])
+                }
+                this.totalPlayerCoins = totalPlayerCoins
             }
-        }" x-init="getPlayerCoins()">
+        }" x-init="gettotalPlayerCoins()">
             <h2>Total Player Coins</h2>
-            <!-- <template x-for="rank in playercoins">
-                <p x-text="rank"></p>
-            </template> -->
-        </div>
+            <template x-for="totalPlayerCoin in totalPlayerCoins">
+                <p x-text="totalPlayerCoin"></p>
+            </template>
+        </div>  <!-- Done!!! -->
 
         <div class="cell total-team-coins" x-data="{ totalTeamCoins: [1456 + 1267 + 2430 + 1524] }">
             <h2>Total Team Coins</h2>

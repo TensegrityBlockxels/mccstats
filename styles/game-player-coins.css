@@ -1,15 +1,15 @@
 /*Coin Rankings style*/
-div.player-coins {
+div.game-player-coins {
     background-color: green;
     position: absolute;
     left: 25rem;
     top: 5rem;  
 }
-div.player-coins>p:not(:last-child){
+div.game-player-coins>p:not(:last-child){
     padding-bottom: 1rem;
     padding-top: 1rem;
     position: relative;
 }
-div.player-coins>p:nth-child(odd) {
+div.game-player-coins>p:nth-child(odd) {
     background-color: darkgreen;
 }
