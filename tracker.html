@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="styles/container.css">
 
     <link rel="stylesheet" href="styles/player-list.css">
-    <link rel="stylesheet" href="styles/game-player-coins.css">
     <link rel="stylesheet" href="styles/total-player-coins.css">
 
     <link rel="stylesheet" href="styles/total-team-coins.css">
@@ -29,6 +28,8 @@
     <div class="container" x-data="{ 
         playerdata: null,
         players: [],
+        totalPlayerCoins: [],
+        p0: [],p1: [],p2: [],p3: []
      }">
         <div class="container-header">
             <span>Red Rabbits</span>
@@ -61,14 +62,14 @@
         </div>
 
         <div class="cell-checker1 cell total-player-coins" x-data="{
-            totalPlayerCoins: [],
             async gettotalPlayerCoins() {
-                let totalPlayerCoins = []
+
                 let res = await fetch('db/individualScores.json').then(response => response.json()).then(response => response.data)
                 for (p in this.players) {
                     totalPlayerCoins.push(res.individualScores[this.players[p]])
                 }
-                this.totalPlayerCoins = totalPlayerCoins
+                console.log('list of Total Player Coins is ' + totalPlayerCoins )
+
             }
         }" x-init="gettotalPlayerCoins()">
             <h2>Total Player Coins</h2>
@@ -77,9 +78,9 @@
             </template>
         </div>
 
-        <div class="cell-checker2 cell total-team-coins" x-data="{ totalTeamCoins: [1456 + 1267 + 2430 + 1524] }">
+        <div class="cell-checker2 cell total-team-coins" x-data="{ }" x-init="console.log(p0)">
             <h2>Total Team Coins</h2>
-            <p x-text="totalTeamCoins"></p>
+            <p></p>
         </div>
 
         <div class="cell-checker1 cell team-avg" x-data="{ teamAvg: [(1456 + 1267 + 2430 + 1524) / 4] }">
