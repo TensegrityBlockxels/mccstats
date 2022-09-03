@@ -29,7 +29,21 @@
         playerdata: null,
         players: [],
         totalPlayerCoins: [],
-        p0: [],p1: [],p2: [],p3: []
+        async getPlayerNames() {
+            let players = []
+            let playerdata = await fetch('db/participants-red.json').then(response => response.json()).then(response => response.data)
+            for (p in playerdata) { 
+                players.push(playerdata[p].username)
+            }
+            this.players = players
+        }
+        async gettotalPlayerCoins() {
+            let res = await fetch('db/individualScores.json').then(response => response.json()).then(response => response.data)
+            for (p in this.players) {
+                this.totalPlayerCoins.push(res.individualScores[this.players[p]])
+            }
+            console.log('list of Total Player Coins is ' + totalPlayerCoins )
+        }
      }">
         <div class="container-header">
             <span>Red Rabbits</span>
@@ -46,14 +60,7 @@
             </select>
         </div>
         <div class="cell-checker1 player-list" x-data="{
-            async getPlayerNames() {
-                let players = []
-                let playerdata = await fetch('db/participants-red.json').then(response => response.json()).then(response => response.data)
-                for (p in playerdata) { 
-                    players.push(playerdata[p].username)
-                }
-                this.players = players
-            }
+
         }" x-init="getPlayerNames()">
             <h2>Players</h2>
             <template x-for="username in players">
@@ -61,24 +68,14 @@
             </template>
         </div>
 
-        <div class="cell-checker1 cell total-player-coins" x-data="{
-            async gettotalPlayerCoins() {
-
-                let res = await fetch('db/individualScores.json').then(response => response.json()).then(response => response.data)
-                for (p in this.players) {
-                    totalPlayerCoins.push(res.individualScores[this.players[p]])
-                }
-                console.log('list of Total Player Coins is ' + totalPlayerCoins )
-
-            }
-        }" x-init="gettotalPlayerCoins()">
+        <div class="cell-checker1 cell total-player-coins" x-data="{ }" x-init="gettotalPlayerCoins()">
             <h2>Total Player Coins</h2>
             <template x-for="totalPlayerCoin in totalPlayerCoins">
                 <p x-text="totalPlayerCoin"></p>
             </template>
         </div>
 
-        <div class="cell-checker2 cell total-team-coins" x-data="{ }" x-init="console.log(p0)">
+        <div class="cell-checker2 cell total-team-coins" x-data="{ }" x-init="">
             <h2>Total Team Coins</h2>
             <p></p>
         </div>
