@@ -1,0 +1,80 @@
+<div
+  id="red"
+  class="container"
+  x-data="{ 
+playerdata: null,
+players: [],
+totalPlayerCoins: {0: 'default', 1: 'default', 2: 'default', 3: 'default'},
+sum: 0,
+}"
+>
+  <div class="container-header">
+    <span>Red Rabbits</span>
+  </div>
+  <div
+    class="cell-checker1 player-list"
+    x-data="{
+    async getPlayerNames() {
+        let players = []
+        let playerdata = await fetch('db/participantsRED.json').then(response => response.json()).then(response => response.data)
+        for (p in playerdata) { 
+            players.push(playerdata[p].username)
+        }
+        this.players = players
+    }
+}"
+    x-init="getPlayerNames()"
+  >
+    <h2>Players</h2>
+    <template x-for="username in players">
+      <p x-text="username"></p>
+    </template>
+  </div>
+
+  <div
+    class="cell-checker1 cell total-player-coins"
+    x-data="{
+    async gettotalPlayerCoins() {
+
+        let res = await fetch('db/individualScores.json').then(response => response.json()).then(response => response.data)
+        for (p in this.players) {
+            totalPlayerCoins[p] = res.individualScores[this.players[p]]
+
+        }
+
+    }
+}"
+    x-init="gettotalPlayerCoins()"
+  >
+    <h2>Total Player Coins</h2>
+    <template x-for="totalPlayerCoin in totalPlayerCoins">
+      <p x-text="totalPlayerCoin"></p>
+    </template>
+  </div>
+
+  <div
+    class="cell-checker2 cell total-team-coins"
+    x-data="{
+    sumOfTeamCoins(v){
+        let sum = 0
+        for (n in v){
+            sum = sum + v[n]
+        }
+        this.sum = sum
+    }
+ }"
+    x-init="$watch('totalPlayerCoins', value => sumOfTeamCoins(value))"
+  >
+    <h2>Total Team Coins</h2>
+    <p x-text="sum"></p>
+  </div>
+
+  <div
+    class="cell-checker1 cell team-avg"
+    x-data="{teamAvg:0, set(v){ let teamAvg = v/4; this.teamAvg = teamAvg} }"
+    x-init="$watch('sum', value => set(value))"
+  >
+    <h2>Average Team Coins</h2>
+    <p x-text="teamAvg"></p>
+  </div>
+</div>

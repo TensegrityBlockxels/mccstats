@@ -1,90 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MCC Analyser</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" href="styles/css-reset.css">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins"
+    />
+    <link rel="stylesheet" href="styles/css-reset.css" />
 
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css" />
 
-    <link rel="stylesheet" href="styles/container.css">
+    <link rel="stylesheet" href="styles/container.css" />
 
-    <link rel="stylesheet" href="styles/player-list.css">
-    <link rel="stylesheet" href="styles/total-player-coins.css">
+    <link rel="stylesheet" href="styles/player-list.css" />
+    <link rel="stylesheet" href="styles/total-player-coins.css" />
 
-    <link rel="stylesheet" href="styles/total-team-coins.css">
-    <link rel="stylesheet" href="styles/team-avg.css">
+    <link rel="stylesheet" href="styles/total-team-coins.css" />
+    <link rel="stylesheet" href="styles/team-avg.css" />
 
-
-
-
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body>
-    <div class="teams"></div>
-    <div class="container" x-data="{ 
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <div class="teams">
+      <div
+        id="red"
+        class="container"
+        x-data="{ 
         playerdata: null,
         players: [],
-        totalPlayerCoins: [],
-        async getPlayerNames() {
-            let players = []
-            let playerdata = await fetch('db/participants-red.json').then(response => response.json()).then(response => response.data)
-            for (p in playerdata) { 
-                players.push(playerdata[p].username)
-            }
-            this.players = players
-        }
-        async gettotalPlayerCoins() {
-            let res = await fetch('db/individualScores.json').then(response => response.json()).then(response => response.data)
-            for (p in this.players) {
-                this.totalPlayerCoins.push(res.individualScores[this.players[p]])
-            }
-            console.log('list of Total Player Coins is ' + totalPlayerCoins )
-        }
-     }">
+        totalPlayerCoins: {0: 'default', 1: 'default', 2: 'default', 3: 'default'},
+        sum: 0,
+     }"
+      >
         <div class="container-header">
-            <span>Red Rabbits</span>
-            <select class="game-selector">
-                <option value="MG_ROCKET_SPLEEF">Rocket Spleef Rush</option>
-                <option value="MG_BATTLE_BOX">Battle Box</option>
-                <option value="MG_MELTDOWN">Meltdown</option>
-                <option value="MG_SANDS_OF_TIME">Sands of Time</option>
-                <option value="MG_BUILD_MART">Buildmart</option>
-                <option value="MG_GRID_RUNNERS">Grid Runners</option>
-                <option value="MG_SKYBATTLE">Sky Battle</option>
-                <option value="MG_ACE_RACE">Ace Race</option>
-                <option value="MG_HOLE_IN_THE_WALL">Role in the Wall</option>
-            </select>
+          <span>Red Rabbits</span>
         </div>
-        <div class="cell-checker1 player-list" x-data="{
-
-        }" x-init="getPlayerNames()">
-            <h2>Players</h2>
-            <template x-for="username in players">
-                <p x-text="username"></p>
-            </template>
-        </div>
-
-        <div class="cell-checker1 cell total-player-coins" x-data="{ }" x-init="gettotalPlayerCoins()">
-            <h2>Total Player Coins</h2>
-            <template x-for="totalPlayerCoin in totalPlayerCoins">
-                <p x-text="totalPlayerCoin"></p>
-            </template>
+        <div
+          class="cell-checker1 player-list"
+          x-data="{
+            async getPlayerNames() {
+                let players = []
+                let playerdata = await fetch('db/participantsRED.json').then(response => response.json()).then(response => response.data)
+                for (p in playerdata) { 
+                    players.push(playerdata[p].username)
+                }
+                this.players = players
+            }
+        }"
+          x-init="getPlayerNames()"
+        >
+          <h2>Players</h2>
+          <template x-for="username in players">
+            <p x-text="username"></p>
+          </template>
         </div>
 
-        <div class="cell-checker2 cell total-team-coins" x-data="{ }" x-init="">
-            <h2>Total Team Coins</h2>
-            <p></p>
+        <div
+          class="cell-checker1 cell total-player-coins"
+          x-data="{
+            async gettotalPlayerCoins() {
+
+                let res = await fetch('db/individualScores.json').then(response => response.json()).then(response => response.data)
+                for (p in this.players) {
+                    totalPlayerCoins[p] = res.individualScores[this.players[p]]
+
+                }
+
+            }
+        }"
+          x-init="gettotalPlayerCoins()"
+        >
+          <h2>Total Player Coins</h2>
+          <template x-for="totalPlayerCoin in totalPlayerCoins">
+            <p x-text="totalPlayerCoin"></p>
+          </template>
         </div>
 
-        <div class="cell-checker1 cell team-avg" x-data="{ teamAvg: [(1456 + 1267 + 2430 + 1524) / 4] }">
-            <h2>Average Team Coins</h2>
-            <p x-text="teamAvg"></p>
+        <div
+          class="cell-checker2 cell total-team-coins"
+          x-data="{
+            sumOfTeamCoins(v){
+                let sum = 0
+                for (n in v){
+                    sum = sum + v[n]
+                }
+                this.sum = sum
+            }
+         }"
+          x-init="$watch('totalPlayerCoins', value => sumOfTeamCoins(value))"
+        >
+          <h2>Total Team Coins</h2>
+          <p x-text="sum"></p>
         </div>
+
+        <div
+          class="cell-checker1 cell team-avg"
+          x-data="{teamAvg:0, set(v){ let teamAvg = v/4; this.teamAvg = teamAvg} }"
+          x-init="$watch('sum', value => set(value))"
+        >
+          <h2>Average Team Coins</h2>
+          <p x-text="teamAvg"></p>
+        </div>
+      </div>
+
     </div>
-
-</body>
+  </body>
 </html>
