@@ -1,7 +1,7 @@
 div.total-player-coins {
     /* background-color: brown; */
-    position: absolute;
-    left: 25rem;  
+    position: relative;
+    
 }
 div.total-player-coins>p:not(:last-child){
     padding-bottom: 1rem;

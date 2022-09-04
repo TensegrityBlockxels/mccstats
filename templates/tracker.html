@@ -9,17 +9,13 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Poppins"
     />
-    <link rel="stylesheet" href="styles/css-reset.css" />
-
-    <link rel="stylesheet" href="styles/style.css" />
-
-    <link rel="stylesheet" href="styles/container.css" />
-
-    <link rel="stylesheet" href="styles/player-list.css" />
-    <link rel="stylesheet" href="styles/total-player-coins.css" />
-
-    <link rel="stylesheet" href="styles/total-team-coins.css" />
-    <link rel="stylesheet" href="styles/team-avg.css" />
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css-reset.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/container.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/player-list.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/total-player-coins.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/total-team-coins.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/team-avg.css') }}">
 
     <script
       defer
@@ -27,9 +23,15 @@
     ></script>
   </head>
   <body>
+    <h1>MCC Analyser</h1>
+    <h2>h2</h2>
+    <h3>h3</h3>
+    <h4>h4</h4>
+    <span>Tool for displaying the latest mcc stats!</span>
     <div class="teams">
+      {% macro teamContainer(team, label) -%}
       <div
-        id="red"
+        id="{{team}}"
         class="container"
         x-data="{ 
         playerdata: null,
@@ -39,14 +41,15 @@
      }"
       >
         <div class="container-header">
-          <span>Red Rabbits</span>
+          <img src="/static/img/{{team}}.png" alt="{{label}}">
+          <span>{{label}}</span>
         </div>
         <div
           class="cell-checker1 player-list"
           x-data="{
             async getPlayerNames() {
                 let players = []
-                let playerdata = await fetch('db/participantsRED.json').then(response => response.json()).then(response => response.data)
+                let playerdata = await fetch('/static/db/participants{{team}}.json').then(response => response.json()).then(response => response.data)
                 for (p in playerdata) { 
                     players.push(playerdata[p].username)
                 }
@@ -55,7 +58,7 @@
         }"
           x-init="getPlayerNames()"
         >
-          <h2>Players</h2>
+          <span>Players</span>
           <template x-for="username in players">
             <p x-text="username"></p>
           </template>
@@ -66,7 +69,7 @@
           x-data="{
             async gettotalPlayerCoins() {
 
-                let res = await fetch('db/individualScores.json').then(response => response.json()).then(response => response.data)
+                let res = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
                 for (p in this.players) {
                     totalPlayerCoins[p] = res.individualScores[this.players[p]]
 
@@ -76,7 +79,7 @@
         }"
           x-init="gettotalPlayerCoins()"
         >
-          <h2>Total Player Coins</h2>
+          <span>Total Player Coins</span>
           <template x-for="totalPlayerCoin in totalPlayerCoins">
             <p x-text="totalPlayerCoin"></p>
           </template>
@@ -95,7 +98,7 @@
          }"
           x-init="$watch('totalPlayerCoins', value => sumOfTeamCoins(value))"
         >
-          <h2>Total Team Coins</h2>
+          <span>Total Team Coins</span>
           <p x-text="sum"></p>
         </div>
 
@@ -104,11 +107,23 @@
           x-data="{teamAvg:0, set(v){ let teamAvg = v/4; this.teamAvg = teamAvg} }"
           x-init="$watch('sum', value => set(value))"
         >
-          <h2>Average Team Coins</h2>
+          <span>Average Team Coins</span>
           <p x-text="teamAvg"></p>
         </div>
       </div>
-
+      {%- endmacro %}
+      {{ teamContainer('AQUA', 'Aqua Axolotls') }}
+      {{ teamContainer('CYAN', 'Cyan Coyotes') }}
+      {{ teamContainer('GREEN', 'Green Geckos') }}
+      {{ teamContainer('LIME', 'Lime LLamas') }}
+      {{ teamContainer('ORANGE', 'Orange Ocelots') }}
+      {{ teamContainer('PINK', 'Pink Parrots') }}
+      {{ teamContainer('PURPLE', 'Purple Pandas') }}
+      {{ teamContainer('RED', 'Red Rabbits') }}
+      {{ teamContainer('YELLOW', 'Yellow Yaks') }}
     </div>
+    <footer>
+      <p>This website is not affiliated with Mojang Studios or Noxcrew Ltd.</p>
+    </footer>
   </body>
 </html>

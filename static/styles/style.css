@@ -8,16 +8,21 @@
     --h2-margin-bottom: 1rem;
     --h2-margin-top: 1rem;
 }
+.teams{
+    display: block;
+}
 body {
     color: #ffff;
+    padding: 3rem;
     /* overflow: hidden; */
     font-family: "Poppins";
     background-color: var(--background-color);
 }
+
 .cell {
     text-align: center;
     height: 16rem;
-    width: 16rem;
+    width: 8rem;
     flex: 25%;
     top: 5rem;
 }
@@ -26,4 +31,16 @@ body {
 }
 .cell-checker2 {
     background-color: var(--accent-color-3);
+}
+
+footer {
+    height: 4rem;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    background-color: var(--accent-color-1);
+}
+footer {
+    position: absolute;
+    top: 5rem;
 }

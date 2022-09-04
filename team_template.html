@@ -1,5 +1,5 @@
 <div
-  id="red"
+  id="TeamName"
   class="container"
   x-data="{ 
 playerdata: null,
@@ -9,14 +9,14 @@ sum: 0,
 }"
 >
   <div class="container-header">
-    <span>Red Rabbits</span>
+    <span>TeamName</span>
   </div>
   <div
     class="cell-checker1 player-list"
     x-data="{
     async getPlayerNames() {
         let players = []
-        let playerdata = await fetch('db/participantsRED.json').then(response => response.json()).then(response => response.data)
+        let playerdata = await fetch('db/participantsTeamName.json').then(response => response.json()).then(response => response.data)
         for (p in playerdata) { 
             players.push(playerdata[p].username)
         }

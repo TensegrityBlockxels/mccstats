@@ -1,0 +1,28 @@
+div.container {
+    position: relative;
+    background-color: var(--accent-color-1);
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;
+    border-radius: 3%;
+    width: 70rem;
+    height: 25rem;
+}
+div.container-header {
+    padding-top: 2rem;
+    border-bottom: 0.2rem solid var(--background-color);
+    position: absolute;
+    width: 100rem;
+}
+div.container-header>span {
+    position: relative;
+    left: 10rem;
+    bottom: 2rem;
+}
+div.container-header>img {
+    position: relative;
+    height: 2rem;
+    width: 2rem;
+    left: 9rem;
+    bottom: 1rem;
+}
