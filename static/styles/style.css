@@ -14,7 +14,6 @@
 body {
     color: #ffff;
     padding: 3rem;
-    /* overflow: hidden; */
     font-family: "Poppins";
     background-color: var(--background-color);
 }
@@ -34,13 +33,15 @@ body {
 }
 
 footer {
+    padding: 2rem;
+    border-radius: 2%;
     height: 4rem;
     width: 100%;
-    position: absolute;
-    left: 50%;
+    position: relative;
+    top: 4rem;
     background-color: var(--accent-color-1);
 }
-footer {
-    position: absolute;
-    top: 5rem;
+
+::-webkit-scrollbar {
+    display: none;
 }
