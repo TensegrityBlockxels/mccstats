@@ -11,4 +11,4 @@ def favicon():
 @app.route("/")
 def test():
     return render_template('tracker.html')
-app.run()
+app.run(host='0.0.0.0', port=3000)
