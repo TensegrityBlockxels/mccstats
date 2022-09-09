@@ -3,17 +3,17 @@ import datetime
 isMonday = datetime.date.today().isoweekday() == 1
 def downloadGameStats(gameName):
     req = requests.get(f"https://api.mcchampionship.com/v1/halloffame/{gameName}")
-    with open(f"db/team/{gameName}.json", "w") as stat:
+    with open(f"static/db/team/{gameName}.json", "w") as stat:
         stat.write(req.text)
 
 def downloadParticipantStats(teamName):
     team = requests.get(f'https://api.mcchampionship.com/v1/participants/{teamName}')
-    with open(f"db/participants{teamName}.json", "w") as teamw:
+    with open(f"static/db/participants{teamName}.json", "w") as teamw:
         teamw.write(team.text)
 
 if True == True:
     rundown = requests.get("https://api.mcchampionship.com/v1/rundown")
-    with open("db/individualScores.json", "w") as individualScores:
+    with open("static/db/individualScores.json", "w") as individualScores:
         individualScores.write(rundown.text)
 
 
