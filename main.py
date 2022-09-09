@@ -1,8 +1,9 @@
-import os
 from flask import Flask, render_template, send_from_directory
+import os, getStats
+
+getStats.downloadSetup()
 
 app = Flask(__name__)
-
 
 @app.route('/favicon.ico')
 def favicon():
