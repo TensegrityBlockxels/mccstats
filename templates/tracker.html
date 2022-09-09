@@ -27,10 +27,10 @@
     <span>Work in progress tool for displaying stats of the latest MCC event!</span>
     <div class="teams" x-data="{
         dataIndividualScores: null,
-        fetchIndidualScores(){
+        fetchIndividualScores(){
           let dataIndividualScores = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
         }
-    }" x-init="fetchIndidualScores()">
+    }" x-init="fetchIndividualScores()">
       {% macro teamContainer(team, label) -%}
       <div
         id="{{team}}"
