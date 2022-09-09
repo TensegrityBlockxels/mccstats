@@ -25,7 +25,12 @@
   <body>
     <h1>MCC Analyser</h1>
     <span>Work in progress tool for displaying stats of the latest MCC event!</span>
-    <div class="teams">
+    <div class="teams" x-data="{
+        dataIndividualScores: null,
+        fetchIndidualScores(){
+          let dataIndividualScores = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
+        }
+    }" x-init="fetchIndidualScores()">
       {% macro teamContainer(team, label) -%}
       <div
         id="{{team}}"
@@ -34,7 +39,7 @@
         playerdata: null,
         players: [],
         totalPlayerCoins: {0: 'default', 1: 'default', 2: 'default', 3: 'default'},
-        sum: 0,
+        sum: 0
      }"
       >
         <div class="container-header">
@@ -65,9 +70,8 @@
           x-data="{
             async gettotalPlayerCoins() {
 
-                let res = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
                 for (p in this.players) {
-                    totalPlayerCoins[p] = res.individualScores[this.players[p]]
+                    totalPlayerCoins[p] = dataIndividualScores.individualScores[this.players[p]]
 
                 }
 
