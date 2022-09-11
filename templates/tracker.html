@@ -9,13 +9,41 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Poppins"
     />
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css-reset.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/container.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/player-list.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/total-player-coins.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/total-team-coins.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/team-avg.css') }}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/css-reset.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/container.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/player-list.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/total-player-coins.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/total-team-coins.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/team-avg.css') }}"
+    />
 
     <script
       defer
@@ -24,15 +52,42 @@
   </head>
   <body>
     <h1>MCC Analyser</h1>
+<<<<<<< HEAD
+    <span
+      >Work in progress tool for displaying stats of the latest MCC event!</span
+    >
+    <div
+      class="teams"
+      x-data="{
+        dataIndividualScores: null,
+        individualScores: {0: 'default'},
+        get getterIndividualScores() {
+          return this.individualScores
+        },
+        async fetchIndividualScores(){
+          let individualScores = {0: 'default'}
+          let dataIndividualScores = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
+          // console.info(dataIndividualScores)
+          individualScores[0] = dataIndividualScores
+          this.individualScores = individualScores
+        }
+    }"
+      x-init="fetchIndividualScores()"
+    >
+=======
     <span>Work in progress tool for displaying stats of the latest MCC event!</span>
     <div class="teams">
+>>>>>>> parent of b663eee (fix: indivual scores is fetched globally instead of in each component)
       {% macro teamContainer(team, label) -%}
       <div
         id="{{team}}"
         class="container"
         x-data="{ 
-        playerdata: null,
-        players: [],
+        dataTeam: null,
+        dataPlayers: {'data': '['},
+        get getterDataPlayers(){
+          return this.dataPlayers
+        },
         totalPlayerCoins: {0: 'default', 1: 'default', 2: 'default', 3: 'default'},
         sum: 0,
      }"
@@ -43,19 +98,23 @@
         <div
           class="cell-checker1 player-list"
           x-data="{
+            localPlayers: [],
             async getPlayerNames() {
-                let players = []
-                let playerdata = await fetch('/static/db/participants{{team}}.json').then(response => response.json()).then(response => response.data)
-                for (p in playerdata) { 
-                    players.push(playerdata[p].username)
+                let dataTeam = await fetch('/static/db/participants{{team}}.json').then(response => response.json()).then(response => response.data)
+                for (p in dataTeam) { 
+                    dataPlayers['data'] = dataPlayers['data'] dataTeam[p].username + ','
                 }
-                this.players = players
+                dataPlayers['data'] += ']'
+                let localPlayers = dataPlayers['data']
+                this.localPlayers = localPlayers
+                this.dataPlayers = dataPlayers
+                // console.log(localPlayers)
             }
         }"
           x-init="getPlayerNames()"
         >
           <span>Players</span>
-          <template x-for="username in players">
+          <template x-for="username in localPlayers">
             <p x-text="username"></p>
           </template>
         </div>
@@ -63,6 +122,16 @@
         <div
           class="cell-checker1 cell total-player-coins"
           x-data="{
+<<<<<<< HEAD
+            localIndividualScores: [],
+            setLocalIndividualScore(){
+              let localIndividualScores = JSON.parse(JSON.stringify(getterIndividualScores['0']))
+              this.localIndividualScores = localIndividualScores
+              console.log(getterDataPlayers['data'])
+              // for (p in this.dataPlayers) {
+              //   totalPlayerCoins[p] = res.individualScores[this.players[p]]
+              // }
+=======
             async gettotalPlayerCoins() {
 
                 let res = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
@@ -70,14 +139,15 @@
                     totalPlayerCoins[p] = res.individualScores[this.players[p]]
 
                 }
+>>>>>>> parent of b663eee (fix: indivual scores is fetched globally instead of in each component)
 
             }
-        }"
-          x-init="gettotalPlayerCoins()"
+          }"
+          x-init="$watch('individualScores', value => setLocalIndividualScore())"
         >
           <span>Total Player Coins</span>
-          <template x-for="totalPlayerCoin in totalPlayerCoins">
-            <p x-text="totalPlayerCoin"></p>
+          <template x-for="individualScore in individualScores">
+            <p x-text="individualScore"></p>
           </template>
         </div>
 
@@ -107,16 +177,13 @@
           <p x-text="teamAvg"></p>
         </div>
       </div>
-      {%- endmacro %}
-      {{ teamContainer('AQUA', 'Aqua Axolotls') }}
-      {{ teamContainer('CYAN', 'Cyan Coyotes') }}
-      {{ teamContainer('GREEN', 'Green Geckos') }}
-      {{ teamContainer('LIME', 'Lime LLamas') }}
-      {{ teamContainer('ORANGE', 'Orange Ocelots') }}
-      {{ teamContainer('PINK', 'Pink Parrots') }}
-      {{ teamContainer('PURPLE', 'Purple Pandas') }}
-      {{ teamContainer('RED', 'Red Rabbits') }}
-      {{ teamContainer('YELLOW', 'Yellow Yaks') }}
+      {%- endmacro %} {{ teamContainer('AQUA', 'Aqua Axolotls') }} {{
+      teamContainer('CYAN', 'Cyan Coyotes') }} {{ teamContainer('GREEN', 'Green
+      Geckos') }} {{ teamContainer('LIME', 'Lime LLamas') }} {{
+      teamContainer('ORANGE', 'Orange Ocelots') }} {{ teamContainer('PINK',
+      'Pink Parrots') }} {{ teamContainer('PURPLE', 'Purple Pandas') }} {{
+      teamContainer('RED', 'Red Rabbits') }} {{ teamContainer('YELLOW', 'Yellow
+      Yaks') }}
     </div>
     <footer>
       <p>This website is not affiliated with Mojang Studios or Noxcrew Ltd.</p>
