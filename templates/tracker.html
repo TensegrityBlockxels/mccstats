@@ -25,7 +25,13 @@
   <body>
     <h1>MCC Analyser</h1>
     <span>Work in progress tool for displaying stats of the latest MCC event!</span>
-    <div class="teams">
+    <div class="teams" x-data="{
+      individualScores: [],
+      async fetchIndividualScores(){
+        this.individualScores = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
+        console.log(this.individualScores)
+      }
+    }" x-init="fetchIndividualScores()">
       {% macro teamContainer(team, label) -%}
       <div
         id="{{team}}"
@@ -64,16 +70,14 @@
           class="cell-checker1 cell total-player-coins"
           x-data="{
             async gettotalPlayerCoins() {
-
-                let res = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
-                for (p in this.players) {
-                    totalPlayerCoins[p] = res.individualScores[this.players[p]]
-
-                }
-
-            }
+              let parsedIndividualScores = JSON.parse(JSON.stringify(this.individualScores))
+              // console.log(parsedIndividualScores.individualScores)
+              for (p in this.players) {
+                totalPlayerCoins[p] = parsedIndividualScores.individualScores[this.players[p]]
+              }
+          }
         }"
-          x-init="gettotalPlayerCoins()"
+          x-init="$watch('players', value => gettotalPlayerCoins())"
         >
           <span>Total Player Coins</span>
           <template x-for="totalPlayerCoin in totalPlayerCoins">
