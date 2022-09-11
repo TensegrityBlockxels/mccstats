@@ -87,6 +87,8 @@
           class="cell-checker2 cell total-team-coins"
           x-data="{
             sumOfTeamCoins(v){
+              // console.log(v)
+              console.log(typeof(v))
                 let sum = 0
                 for (n in v){
                     sum = sum + v[n]
@@ -94,7 +96,7 @@
                 this.sum = sum
             }
          }"
-          x-init="$watch('totalPlayerCoins', value => sumOfTeamCoins(value))"
+          x-init="$watch('individualPlayerCoins', value => sumOfTeamCoins(value))"
         >
           <span>Total Team Coins</span>
           <p x-text="sum"></p>
