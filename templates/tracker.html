@@ -39,7 +39,7 @@
         x-data="{ 
         playerdata: null,
         players: [],
-        totalPlayerCoins: {0: 'default', 1: 'default', 2: 'default', 3: 'default'},
+        individualPlayerCoins: {0: 'default', 1: 'default', 2: 'default', 3: 'default'},
         sum: 0,
      }"
       >
@@ -69,19 +69,18 @@
         <div
           class="cell-checker1 cell total-player-coins"
           x-data="{
-            async gettotalPlayerCoins() {
+            async getIndividualPlayerCoins() {
               let parsedIndividualScores = JSON.parse(JSON.stringify(this.individualScores))
-              // console.log(parsedIndividualScores.individualScores)
               for (p in this.players) {
-                totalPlayerCoins[p] = parsedIndividualScores.individualScores[this.players[p]]
+                individualPlayerCoins[p] = parsedIndividualScores.individualScores[this.players[p]]
               }
           }
         }"
-          x-init="$watch('players', value => gettotalPlayerCoins())"
+          x-init="$watch('players', value => getIndividualPlayerCoins())"
         >
           <span>Total Player Coins</span>
-          <template x-for="totalPlayerCoin in totalPlayerCoins">
-            <p x-text="totalPlayerCoin"></p>
+          <template x-for="individualPlayerCoin in individualPlayerCoins">
+            <p x-text="individualPlayerCoin"></p>
           </template>
         </div>
 
