@@ -13,7 +13,7 @@ def downloadParticipantStats(teamName):
 
 
 def downloadSetup():
-    if True == True:
+    if isMonday == True:
         rundown = requests.get("https://api.mcchampionship.com/v1/rundown")
         with open("static/db/individualScores.json", "w") as individualScores:
             individualScores.write(rundown.text)
