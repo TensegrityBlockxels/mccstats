@@ -29,7 +29,6 @@
       individualScores: [],
       async fetchIndividualScores(){
         this.individualScores = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
-        console.log(this.individualScores)
       }
     }" x-init="fetchIndividualScores()">
       {% macro teamContainer(team, label) -%}
@@ -37,7 +36,7 @@
         id="{{team}}"
         class="container"
         x-data="{ 
-        playerdata: null,
+        teamData: null,
         players: [],
         individualPlayerCoins: {0: 'default', 1: 'default', 2: 'default', 3: 'default'},
         sum: 0,
@@ -51,9 +50,9 @@
           x-data="{
             async getPlayerNames() {
                 let players = []
-                let playerdata = await fetch('/static/db/participants{{team}}.json').then(response => response.json()).then(response => response.data)
-                for (p in playerdata) { 
-                    players.push(playerdata[p].username)
+                let teamData = await fetch('/static/db/participants{{team}}.json').then(response => response.json()).then(response => response.data)
+                for (p in teamData) { 
+                    players.push(teamData[p].username)
                 }
                 this.players = players
             }
