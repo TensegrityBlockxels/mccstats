@@ -1,5 +1,5 @@
 import requests
-import datetime
+import datetime, sys
 isMonday = datetime.date.today().isoweekday() == 1
 def downloadGameStats(gameName):
     req = requests.get(f"https://api.mcchampionship.com/v1/halloffame/{gameName}")
@@ -13,7 +13,7 @@ def downloadParticipantStats(teamName):
 
 
 def downloadSetup():
-    if isMonday == True:
+    if isMonday == True or sys.argv[1] == "download":
         rundown = requests.get("https://api.mcchampionship.com/v1/rundown")
         with open("static/db/individualScores.json", "w") as individualScores:
             individualScores.write(rundown.text)
