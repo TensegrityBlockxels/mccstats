@@ -12,5 +12,4 @@ def create_app():
     @app.route("/")
     def test():
         return render_template('tracker.html')
-    app.run(host='0.0.0.0', port=8080)
     return app
