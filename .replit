@@ -1,4 +1,4 @@
-run = "gunicorn -w 4 'main:app'"
+run = "gunicorn -w 1 -b 0.0.0.0 'main:create_app()'"
 
 # The primary language of the repl. There can be others, though!
 language = "python3"
