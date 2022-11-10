@@ -36,19 +36,19 @@ def downloadSetup():
                     participantList.append(participants[participant]["username"])
 
 
-    diff_names = list(set(participantList) - set(scores))
+        diff_names = list(set(participantList) - set(scores))
 
-    diff_name_dict = {diff: "0000" for diff in diff_names}
-    content_dict = content["data"]["individualScores"]
-    content_dict.update(diff_name_dict)
+        diff_name_dict = {diff: "0000" for diff in diff_names}
+        content_dict = content["data"]["individualScores"]
+        content_dict.update(diff_name_dict)
     
 
-    content["data"]["individualScores"] = content_dict
+        content["data"]["individualScores"] = content_dict
 
     # print(content)
 
-    with open("static/db/individualScores.json", "w") as scoreFixer:
-        scoreFixer.write(content)
+        with open("static/db/individualScores.json", "w") as scoreFixer:
+            scoreFixer.write(content)
 
 if sys.argv[1] == "download":
     downloadSetup()
