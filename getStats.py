@@ -42,10 +42,9 @@ def downloadSetup():
         content_dict = content["data"]["individualScores"]
         content_dict.update(diff_name_dict)
     
-
+        print(content_dict)
         content["data"]["individualScores"] = content_dict
 
-    # print(content)
 
         with open("static/db/individualScores.json", "w") as scoreFixer:
             scoreFixer.write(content)
