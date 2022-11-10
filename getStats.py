@@ -47,7 +47,7 @@ def downloadSetup():
 
 
         with open("static/db/individualScores.json", "w") as scoreFixer:
-            scoreFixer.write(content)
+            scoreFixer.write(json.dumps(content))
 
 if sys.argv[1] == "download":
     downloadSetup()
