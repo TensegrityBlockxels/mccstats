@@ -38,7 +38,7 @@ def downloadSetup():
 
         diff_names = list(set(participantList) - set(scores))
 
-        diff_name_dict = {diff: "0000" for diff in diff_names}
+        diff_name_dict = {diff: 0000 for diff in diff_names}
         content_dict = content["data"]["individualScores"]
         content_dict.update(diff_name_dict)
     
