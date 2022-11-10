@@ -16,7 +16,7 @@ def downloadSetup():
     if isMonday == True or sys.argv[1] == "download" or sys.argv[1] == "cache":
         TEAMS = ["RED","ORANGE","YELLOW","GREEN","LIME","AQUA","CYAN","BLUE","PURPLE","PINK"]
 
-        if sys.arv[1] == "cache":
+        if sys.arv[1] == "download":
             rundown = requests.get("https://api.mcchampionship.com/v1/rundown")
             with open("static/db/individualScores.json", "w") as individualScores:
                 individualScores.write(rundown.text)
