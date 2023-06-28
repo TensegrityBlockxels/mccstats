@@ -1,47 +1,56 @@
-:root {
-    --background-color: rgb(37, 37, 37);
-    --accent-color-1: rgb(28, 28, 28);
-    --accent-color-2: rgb(38, 38, 38);
-    --accent-color-3: rgb(24, 24, 24);
+@font-face {
+  font-family: Poppins;
+  src: url("{{ url_for('static',filename='styles/css-reset.css') }}");
+}
 
-    --contents-margin-top: 10rem;
-    --h2-margin-bottom: 1rem;
-    --h2-margin-top: 1rem;
+:root {
+  --background-color: rgb(230, 230, 230);
+  --accent-color-1: rgb(28, 28, 28);
+  --accent-color-2: rgb(38, 38, 38);
+  --accent-color-3: rgb(24, 24, 24);
+  --text-color: #000000;
+
+  --contents-margin-top: 10rem;
+  --h2-margin-bottom: 1rem;
+  --h2-margin-top: 1rem;
 }
-.teams{
-    display: block;
-}
+
 body {
-    color: #ffff;
-    padding: 3rem;
-    font-family: "Poppins";
-    background-color: var(--background-color);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: clamp(0.5rem, 2rem, 4rem);
+  font-family: "Poppins";
+  padding: 3rem;
+}
+
+.teams {
+  display: block;
 }
 
 .cell {
-    text-align: center;
-    height: 16rem;
-    width: 8rem;
-    flex: 25%;
-    top: 5rem;
+  text-align: center;
+  height: 16rem;
+  width: 8rem;
+  flex: 25%;
+  top: 5rem;
 }
 .cell-checker1 {
-    background-color: var(--accent-color-2);
+  background-color: var(--accent-color-2);
 }
 .cell-checker2 {
-    background-color: var(--accent-color-3);
+  background-color: var(--accent-color-3);
 }
 
 footer {
-    padding: 2rem;
-    border-radius: 2%;
-    height: 4rem;
-    width: 100%;
-    position: relative;
-    top: 4rem;
-    background-color: var(--accent-color-1);
+  padding: 2rem;
+  border-radius: 2%;
+  height: 4rem;
+  width: 100%;
+  position: relative;
+  top: 4rem;
+  background-color: var(--accent-color-1);
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }

@@ -5,10 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MCC Analyser</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Poppins"
-    />
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css-reset.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/container.css') }}">
@@ -25,17 +21,16 @@
   <body>
     <h1>MCC Analyser</h1>
     <span>Work in progress tool for displaying stats of the latest MCC event!</span>
-    <div class="teams" x-data="{
-      individualScores: [],
+    <div class="teams" x-data="{ //js
       async fetchIndividualScores(){
-        this.individualScores = await fetch('{{ url_for('static',filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
+        this.individualScores = await fetch('{{ url_for('static', filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
       }
     }" x-init="fetchIndividualScores()">
       {% macro teamContainer(team, label) -%}
       <div
-        id="{{team}}"
+        id="{{team}}" 
         class="container"
-        x-data="{ 
+        x-data="{ //js
         teamData: null,
         players: [],
         individualPlayerCoins: {0: 'default', 1: 'default', 2: 'default', 3: 'default'},
@@ -48,7 +43,7 @@
         <div
           class="cell-checker1 player-list"
           x-data="{
-            async getPlayerNames() {
+            async getPlayerNames() { //js
                 let players = []
                 let teamData = await fetch('/static/db/participants{{team}}.json').then(response => response.json()).then(response => response.data)
                 for (p in teamData) { 
@@ -68,7 +63,7 @@
         <div
           class="cell-checker1 cell total-player-coins"
           x-data="{
-            async getIndividualPlayerCoins() {
+            async getIndividualPlayerCoins() { //js
               let parsedIndividualScores = JSON.parse(JSON.stringify(this.individualScores))
               for (p in this.players) {
                 individualPlayerCoins[p] = parsedIndividualScores.individualScores[this.players[p]]
@@ -86,7 +81,7 @@
         <div
           class="cell-checker2 cell total-team-coins"
           x-data="{
-            sumOfTeamCoins(v){
+            sumOfTeamCoins(v){ //js
               // console.log(v)
               console.log(typeof(v))
                 let sum = 0
