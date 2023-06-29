@@ -19,11 +19,11 @@
     ></script>
     <style>
       :root {
-        --font-file: url("{{ url_for('static',filename='fonts/Poppins-Regular.ttf') }}")
+        --font-file: url("{{ url_for('static',filename='fonts/Poppins-Regular.ttf') }}");
       }
       @font-face {
         font-family: "Poppins";
-        src: var(--font-file) format("truetype");
+        src: url("/static/fonts/Poppins-Regular.ttf") format("truetype");
       }
       body {
         font-family: "Poppins";
