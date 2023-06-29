@@ -7,9 +7,12 @@ div.container {
   border-radius: 3%;
   width: clamp(25rem, 60rem, 50%);
   height: 22rem;
+  color: #ffffff;
 }
 div.container-header {
   position: relative;
+  width: 0;
+  height: 5rem;
 }
 div.container-header > span {
   position: relative;
