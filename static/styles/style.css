@@ -12,7 +12,7 @@
 
 @font-face {
   font-family: Poppins;
-  src: url("var(--font-file)");
+  src: url(var(--font-file));
 }
 
 body {
