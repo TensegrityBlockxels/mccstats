@@ -21,6 +21,13 @@
       :root {
         --font-file: url("{{ url_for('static',filename='fonts/Poppins-Regular.ttf') }}")
       }
+      @font-face {
+        font-family: "Poppins";
+        src: var(--font-file) format("truetype");
+      }
+      body {
+        font-family: "Poppins";
+      }
     </style>
   </head>
   <body>

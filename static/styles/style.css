@@ -10,16 +10,12 @@
   --h2-margin-top: 1rem;
 }
 
-@font-face {
-  font-family: "Poppins";
-  src: var(--font-file);
-}
+
 
 body {
   color: var(--text-color);
   background-color: var(--background-color);
   margin: clamp(0.5rem, 2rem, 4rem);
-  font-family: "Poppins";
   padding: 3rem;
 }
 
