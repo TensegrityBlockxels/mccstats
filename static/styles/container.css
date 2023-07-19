@@ -8,7 +8,7 @@
   color: #ffffff;
 }
 .container:not(:first-child) {
-  margin-top: calc(var(--height) + 8rem);
+  margin-top: calc(var(--height) - 8rem);
 }
 
 .container-header {
@@ -54,5 +54,8 @@
 @media only screen and (max-width: 560px) {
   .container {
     width: 100%;
+  }
+  .container:not(:first-child) {
+    margin-top: calc(var(--height) + 8rem);
   }
 }
