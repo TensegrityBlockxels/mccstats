@@ -2,12 +2,15 @@
   --height: 28rem;
   position: relative;
   background-color: var(--accent-color-1);
-  margin-top: var(--height);
   border-radius: 3px;
   width: clamp(var(--height), 60rem, 50%);
   height: 22rem;
   color: #ffffff;
 }
+.container:not(:first-child) {
+  margin-top: calc(var(--height) - 8rem);
+}
+
 .container-header {
   position: relative;
   height: 5rem;

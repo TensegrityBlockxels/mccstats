@@ -24,7 +24,7 @@ body {
 .cell {
   position: relative;
   text-align: center;
-  height: 16rem;
+  height: 20rem;
   width: 8rem;
   flex: 20%;
   top: 5rem;
