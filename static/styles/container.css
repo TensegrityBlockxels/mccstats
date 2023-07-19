@@ -56,6 +56,6 @@
     width: 100%;
   }
   .container:not(:first-child) {
-    margin-top: calc(var(--height) + 8rem);
+    margin-top: calc(var(--height) + 18rem);
   }
 }
