@@ -5,13 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MCC Analyser</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css-reset.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/container.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/player-list.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/total-player-coins.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/total-team-coins.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/team-avg.css') }}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/css-reset.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/container.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/player-list.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/total-player-coins.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/total-team-coins.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/team-avg.css') }}"
+    />
 
     <script
       defer
@@ -32,15 +60,21 @@
   </head>
   <body>
     <h1>MCC Analyser</h1>
-    <span>Work in progress tool for displaying stats of the latest MCC event!</span>
-    <div class="teams" x-data="{ //js
+    <span
+      >Work in progress tool for displaying stats of the latest MCC event!</span
+    >
+    <div
+      class="teams"
+      x-data="{ //js
       async fetchIndividualScores(){
         this.individualScores = await fetch('{{ url_for('static', filename='db/individualScores.json') }}').then(response => response.json()).then(response => response.data)
       }
-    }" x-init="fetchIndividualScores()">
+    }"
+      x-init="fetchIndividualScores()"
+    >
       {% macro teamContainer(team, label) -%}
       <div
-        id="{{team}}" 
+        id="{{team}}"
         class="container"
         x-data="{ //js
         teamData: null,
@@ -52,9 +86,11 @@
         <div class="container-header">
           <span>{{label}}</span>
         </div>
-        <div
-          class="cell-checker1 player-list"
-          x-data="{
+
+        <div class="stats">
+          <div
+            class="cell cell-light player-list"
+            x-data="{
             async getPlayerNames() { //js
                 let players = []
                 let teamData = await fetch('/static/db/participants{{team}}.json').then(response => response.json()).then(response => response.data)
@@ -64,17 +100,17 @@
                 this.players = players
             }
         }"
-          x-init="getPlayerNames()"
-        >
-          <span>Players</span>
-          <template x-for="username in players">
-            <p x-text="username"></p>
-          </template>
-        </div>
+            x-init="getPlayerNames()"
+          >
+            <span>Players</span>
+            <template x-for="username in players">
+              <p x-text="username"></p>
+            </template>
+          </div>
 
-        <div
-          class="cell-checker1 cell total-player-coins"
-          x-data="{
+          <div
+            class="cell cell-dark total-player-coins"
+            x-data="{
             async getIndividualPlayerCoins() { //js
               let parsedIndividualScores = JSON.parse(JSON.stringify(this.individualScores))
               for (p in this.players) {
@@ -82,20 +118,18 @@
               }
           }
         }"
-          x-init="$watch('players', value => getIndividualPlayerCoins())"
-        >
-          <span>Total Player Coins</span>
-          <template x-for="individualPlayerCoin in individualPlayerCoins">
-            <p x-text="individualPlayerCoin"></p>
-          </template>
-        </div>
+            x-init="$watch('players', value => getIndividualPlayerCoins())"
+          >
+            <span>Total Player Coins</span>
+            <template x-for="individualPlayerCoin in individualPlayerCoins">
+              <p x-text="individualPlayerCoin"></p>
+            </template>
+          </div>
 
-        <div
-          class="cell-checker2 cell total-team-coins"
-          x-data="{
+          <div
+            class="cell cell-light total-team-coins"
+            x-data="{
             sumOfTeamCoins(v){ //js
-              // console.log(v)
-              console.log(typeof(v))
                 let sum = 0
                 for (n in v){
                     sum = sum + v[n]
@@ -103,31 +137,33 @@
                 this.sum = sum
             }
          }"
-          x-init="$watch('individualPlayerCoins', value => sumOfTeamCoins(value))"
-        >
-          <span>Total Team Coins</span>
-          <p x-text="sum"></p>
+            x-init="$watch('individualPlayerCoins', value => sumOfTeamCoins(value))"
+          >
+            <span>Total Team Coins</span>
+            <p x-text="sum"></p>
+          </div>
+
+          <div
+            class="cell cell-dark team-avg"
+            x-data="{teamAvg:0, set(v){ let teamAvg = v/4; this.teamAvg = teamAvg} }"
+            x-init="$watch('sum', value => set(value))"
+          >
+            <span>Average Team Coins</span>
+            <p x-text="teamAvg"></p>
+          </div>
         </div>
 
-        <div
-          class="cell-checker1 cell team-avg"
-          x-data="{teamAvg:0, set(v){ let teamAvg = v/4; this.teamAvg = teamAvg} }"
-          x-init="$watch('sum', value => set(value))"
-        >
-          <span>Average Team Coins</span>
-          <p x-text="teamAvg"></p>
-        </div>
       </div>
-      {%- endmacro %}
+      {%- endmacro %} 
       {{ teamContainer('AQUA', 'Aqua Axolotls') }}
-      {{ teamContainer('CYAN', 'Cyan Coyotes') }}
+      {{ teamContainer('CYAN', 'Cyan Coyotes') }} 
       {{ teamContainer('GREEN', 'Green Geckos') }}
-      {{ teamContainer('LIME', 'Lime LLamas') }}
+      {{ teamContainer('LIME', 'Lime LLamas') }} 
       {{ teamContainer('ORANGE', 'Orange Ocelots') }}
       {{ teamContainer('PINK', 'Pink Parrots') }}
       {{ teamContainer('PURPLE', 'Purple Pandas') }}
       {{ teamContainer('RED', 'Red Rabbits') }}
-      {{ teamContainer('YELLOW', 'Yellow Yaks') }}
+      {{ teamContainer('YELLOW', 'YellowYaks') }}
     </div>
     <footer>
       <p>This website is not affiliated with Mojang Studios or Noxcrew Ltd.</p>

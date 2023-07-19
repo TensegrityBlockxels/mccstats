@@ -1,4 +1,4 @@
-div.total-player-coins {
+/* div.total-player-coins {
   position: relative;
 }
 div.total-player-coins > p:not(:last-child) {
@@ -8,4 +8,4 @@ div.total-player-coins > p:not(:last-child) {
 }
 div.total-player-coins > p:nth-child(odd) {
   background-color: var(--accent-color-1);
-}
+} */
