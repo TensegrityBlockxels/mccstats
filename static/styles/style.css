@@ -13,7 +13,6 @@
 body {
   color: var(--text-color);
   background-color: var(--background-color);
-  margin: clamp(0.5rem, 2rem, 4rem);
   padding: 3rem;
 }
 
@@ -24,10 +23,10 @@ body {
 .cell {
   position: relative;
   text-align: center;
-  height: 20rem;
+  height: 17rem;
   width: 8rem;
   flex: 20%;
-  top: 5rem;
+  top: 4rem;
 }
 
 .cell > p:not(:last-child) {
