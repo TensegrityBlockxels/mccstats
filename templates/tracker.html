@@ -82,7 +82,7 @@
         }"
             x-init="getPlayerNames()"
           >
-            <span>Players</span>
+            <span class="category">Players</span>
             <template x-for="username in players">
               <p x-text="username"></p>
             </template>
@@ -100,7 +100,7 @@
         }"
             x-init="$watch('players', value => getIndividualPlayerCoins())"
           >
-            <span>Total Player Coins</span>
+            <span class="category">Total Player Coins</span>
             <template x-for="individualPlayerCoin in individualPlayerCoins">
               <p x-text="individualPlayerCoin"></p>
             </template>

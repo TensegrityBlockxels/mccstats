@@ -33,11 +33,7 @@
   flex-direction: row;
 }
 
-.player-list > span:first-child {
-  display: block;
-  height: 3rem;
-  padding-top: 0.5rem;
-}
+
 
 .total-team-coins > p {
   padding-top: 5rem;
