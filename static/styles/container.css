@@ -11,6 +11,10 @@
   margin-top: calc(var(--height) - 8rem);
 }
 
+.container:last-child {
+  margin-bottom: 5rem;
+}
+
 .container-header {
   position: relative;
   text-align: center;
@@ -53,5 +57,10 @@
   }
   .container:not(:first-child) {
     margin-top: calc(var(--height) + 18rem);
+  }
+}
+@media only screen and(max-width: 608px) {
+  .container:last-child {
+    margin-bottom: 22rem;
   }
 }
