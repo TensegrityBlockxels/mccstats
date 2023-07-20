@@ -89,7 +89,7 @@
           </div>
 
           <div
-            class="cell total-player-coins"
+            class="cell cell-dark total-player-coins"
             x-data="{
             async getIndividualPlayerCoins() { //js
               let parsedIndividualScores = JSON.parse(JSON.stringify(this.individualScores))
@@ -124,7 +124,7 @@
           </div>
 
           <div
-            class="cell cell-dark team-avg"
+            class="cell team-avg"
             x-data="{teamAvg:0, set(v){ let teamAvg = v/4; this.teamAvg = teamAvg} }"
             x-init="$watch('sum', value => set(value))"
           >

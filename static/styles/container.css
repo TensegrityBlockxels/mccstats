@@ -33,21 +33,19 @@
   flex-direction: row;
 }
 
-.player-list > span:first{
+.player-list > span:first-child {
   display: block;
   padding-top: 3rem;
 }
 
-.total-team-coins {
-  position: relative;
-}
 .total-team-coins > p {
   padding-top: 5rem;
 }
 
 .team-avg {
-  position: relative;
+  background-color: var(--accent-color-2);
 }
+
 .team-avg > p {
   padding-top: 5rem;
 }

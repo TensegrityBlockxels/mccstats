@@ -1,7 +1,7 @@
 :root {
   --background-color: rgb(230, 230, 230);
-  --accent-color-1: rgb(28, 28, 28);
-  --accent-color-2: rgb(38, 38, 38);
+  --accent-color-1: rgb(38, 38, 38);
+  --accent-color-2: rgb(28, 28, 28);
   --accent-color-3: rgb(24, 24, 24);
   --text-color: #000000;
 
@@ -21,7 +21,7 @@ body {
 }
 
 .cell {
-  background-color: var(--accent-color-2);
+  background-color: var(--accent-color-1);
   position: relative;
   text-align: center;
   height: 20rem;
@@ -34,11 +34,16 @@ body {
   padding-bottom: 1rem;
   padding-top: 1rem;
 }
+
 .cell > p:nth-child(odd) {
-  background-color: var(--accent-color-1);
+  background-color: var(--accent-color-2);
 }
 
 .cell-dark {
+  background-color: var(--accent-color-2);
+}
+
+.cell-dark > p:nth-child(odd) {
   background-color: var(--accent-color-1);
 }
 
