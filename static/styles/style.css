@@ -21,6 +21,7 @@ body {
 }
 
 .cell {
+  background-color: var(--accent-color-2);
   position: relative;
   text-align: center;
   height: 20rem;
@@ -37,21 +38,17 @@ body {
   background-color: var(--accent-color-1);
 }
 
-.cell-light {
-  background-color: var(--accent-color-2);
-}
-
 .cell-dark {
-  background-color: var(--accent-color-3);
+  background-color: var(--accent-color-1);
 }
 
 footer {
   padding: 2rem;
-  border-radius: 2%;
-  height: 4rem;
+  border-radius: 2px;
   width: 100%;
   position: relative;
   top: 4rem;
+  color: white;
   background-color: var(--accent-color-1);
 }
 

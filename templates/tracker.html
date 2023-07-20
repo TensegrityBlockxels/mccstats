@@ -69,7 +69,7 @@
 
         <div class="stats">
           <div
-            class="cell cell-light player-list"
+            class="cell player-list"
             x-data="{
             async getPlayerNames() { //js
                 let players = []
@@ -89,7 +89,7 @@
           </div>
 
           <div
-            class="cell cell-dark total-player-coins"
+            class="cell total-player-coins"
             x-data="{
             async getIndividualPlayerCoins() { //js
               let parsedIndividualScores = JSON.parse(JSON.stringify(this.individualScores))
@@ -107,7 +107,7 @@
           </div>
 
           <div
-            class="cell cell-light total-team-coins"
+            class="cell total-team-coins"
             x-data="{
             sumOfTeamCoins(v){ //js
                 let sum = 0
