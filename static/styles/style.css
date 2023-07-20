@@ -24,7 +24,6 @@ body {
   background-color: var(--accent-color-1);
   position: relative;
   text-align: center;
-  white-space: nowrap;
   height: 20rem;
   width: 10rem;
   flex: 20%;
