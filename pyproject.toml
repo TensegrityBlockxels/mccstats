@@ -8,7 +8,7 @@ authors = ["Replit user <<>>"]
 python = "^3.8"
 requests = "^2.31.0"
 Flask = "^2.2.5"
-gunicorn = "^20.1.0"
+gunicorn = "^22.0.0"
 
 [tool.poetry.dev-dependencies]
 
